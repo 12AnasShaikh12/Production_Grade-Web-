@@ -32,7 +32,30 @@ export function isSameOrigin(request: Request): boolean {
   const origin = request.headers.get("origin");
   if (!origin) return true; // Non-browser clients (curl, server-to-server) don't send Origin.
   try {
-    return new URL(origin).host === new URL(request.url).host || origin === process.env.NEXT_PUBLIC_SITE_URL;
+    const originUrl = new URL(origin);
+    const requestUrl = new URL(request.url);
+    if (originUrl.host === requestUrl.host) return true;
+
+    // Loopback aliases should be treated as the same origin: `localhost`, `127.0.0.1` and the
+    // IPv6 loopback `[::1]` are all "this machine" during local development. Matching only on
+    // host string would otherwise falsely reject a browser on 127.0.0.1 reaching a server that
+    // reports its host as localhost (or vice versa) — a common dev gotcha on Windows where the
+    // forwarded port and the hostname don't line up.
+    const loopbacks = new Set(["localhost", "127.0.0.1", "[::1]", "::1", "0.0.0.0"]);
+    if (originUrl.port === requestUrl.port && loopbacks.has(originUrl.hostname) && loopbacks.has(requestUrl.hostname)) return true;
+
+    // Fall back to the configured public site URL (preview/production deployments behind a
+    // proxy, where `request.url` can show the upstream host rather than the public one).
+    const configured = process.env.NEXT_PUBLIC_SITE_URL;
+    if (configured) {
+      try {
+        if (new URL(configured).host === originUrl.host) return true;
+      } catch {
+        /* ignore malformed env */
+      }
+    }
+
+    return false;
   } catch {
     return false;
   }
