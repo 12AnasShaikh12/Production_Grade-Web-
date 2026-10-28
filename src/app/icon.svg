@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="g" cx="0.35" cy="0.3" r="0.9"><stop offset="0" stop-color="#FFFDF9"/><stop offset="0.7" stop-color="#F4EEE6"/><stop offset="1" stop-color="#ECD3CB"/></radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="36" fill="#2A2421">A</text>
+  <circle cx="47" cy="17" r="4.5" fill="#F3BD52"/>
+</svg>
