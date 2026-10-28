@@ -8,7 +8,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <>
       <SiteHeader brandName={content.brand.name} />
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pb-20 sm:pb-24">
         {children}
       </main>
       <SiteFooter content={content} />

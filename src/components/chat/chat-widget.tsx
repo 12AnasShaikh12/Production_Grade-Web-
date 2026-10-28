@@ -104,18 +104,22 @@ export function ChatWidget({ brandName }: { brandName: string }) {
             onClick={() => setOpen(true)}
             aria-haspopup="dialog"
             aria-label={`Open the ${brandName} Assistant chat`}
-            className="fixed bottom-5 right-4 z-40 flex items-center gap-3 rounded-full bg-ink py-3 pl-3 pr-5 text-milk shadow-lift transition-colors hover:bg-[#3d3430] sm:bottom-6 sm:right-6"
+            // Icon-only resting footprint so the FAB cannot cover a product-card "Add to bag"
+            // button underneath it; the label slides in on hover / keyboard focus.
+            className="group fixed bottom-5 right-4 z-40 flex items-center gap-2 rounded-full bg-ink py-2.5 pl-2.5 pr-2.5 text-milk shadow-lift transition-[padding,background-color] duration-300 ease-[var(--ease-silk)] hover:bg-[#3d3430] hover:pr-5 focus-visible:bg-[#3d3430] focus-visible:pr-5 sm:bottom-6 sm:right-6"
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span aria-hidden="true" className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-blush via-milk to-citrus-soft text-ink">
+            <span aria-hidden="true" className="grid size-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-blush via-milk to-citrus-soft text-ink">
               <svg viewBox="0 0 24 24" className="size-[1.15rem]" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M12 3.5 13.6 9l5.4 1.6-5.4 1.6L12 17.7l-1.6-5.5L5 10.6 10.4 9z" strokeLinejoin="round" />
               </svg>
             </span>
-            <span className="text-sm font-semibold">Ask our assistant</span>
+            <span className="max-w-0 overflow-hidden whitespace-nowrap text-sm font-semibold opacity-0 transition-[max-width,opacity,margin] duration-300 ease-[var(--ease-silk)] group-hover:ml-1 group-hover:max-w-[12rem] group-hover:opacity-100 group-focus-visible:ml-1 group-focus-visible:max-w-[12rem] group-focus-visible:opacity-100">
+              Ask our assistant
+            </span>
           </m.button>
         )}
       </AnimatePresence>
