@@ -128,7 +128,7 @@ export function Hero({ brandName, tagline, productName, productHref, price, comp
             </div>
             <figcaption className="sr-only">Concept visualisation of the {productName} jar.</figcaption>
           </m.figure>
-          <ul className="pointer-events-none absolute inset-0 hidden sm:block" aria-label="Ingredient highlights">
+          <m.ul style={{ y: jarY }} className="pointer-events-none absolute inset-0 hidden sm:block" aria-label="Ingredient highlights">
             {ingredients.slice(0, 4).map((name, i) => (
               <m.li
                 key={name}
@@ -147,7 +147,7 @@ export function Hero({ brandName, tagline, productName, productHref, price, comp
                 {name}
               </m.li>
             ))}
-          </ul>
+          </m.ul>
           <p className="mt-2 text-center text-xs text-ink-muted">Conceptual packaging visualisation — final packaging may differ.</p>
         </div>
       </div>

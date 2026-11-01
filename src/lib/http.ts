@@ -44,6 +44,14 @@ export function isSameOrigin(request: Request): boolean {
     const loopbacks = new Set(["localhost", "127.0.0.1", "[::1]", "::1", "0.0.0.0"]);
     if (originUrl.port === requestUrl.port && loopbacks.has(originUrl.hostname) && loopbacks.has(requestUrl.hostname)) return true;
 
+    // Behind a reverse proxy (Render, and most other PaaS hosts), `request.url` reflects the
+    // host the proxy forwards to internally, not the public hostname the browser connected to.
+    // The proxy records that public hostname in `X-Forwarded-Host` (or `Forwarded: host=`), so
+    // trust it the same way the platform's own routing does — this is what actually keeps the
+    // check working without requiring NEXT_PUBLIC_SITE_URL to be perfectly in sync.
+    const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+    if (forwardedHost && forwardedHost === originUrl.host) return true;
+
     // Fall back to the configured public site URL (preview/production deployments behind a
     // proxy, where `request.url` can show the upstream host rather than the public one).
     const configured = process.env.NEXT_PUBLIC_SITE_URL;
