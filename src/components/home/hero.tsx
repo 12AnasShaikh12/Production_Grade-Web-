@@ -31,7 +31,7 @@ export function Hero({ brandName, tagline, productName, productHref, price, comp
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-milk-glow" aria-labelledby="hero-title">
-      <div className="container-page grid items-center gap-10 pb-16 pt-10 sm:pt-14 lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:pb-24 lg:pt-16">
+      <div className="container-page grid items-center gap-10 pb-16 pt-4 sm:pt-6 lg:grid-cols-[1.05fr_1fr] lg:gap-6 lg:pb-24 lg:pt-8">
         <div className="relative z-10 max-w-xl">
           <m.p className="eyebrow" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
             KMG · Korean Magic Glow
