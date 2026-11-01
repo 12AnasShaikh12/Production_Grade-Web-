@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function Wordmark({ brandName, className = "" }: { brandName: string; className?: string }) {
   const [first, ...rest] = brandName.split(" ");
-  const pathname = usePathname();
   return (
     <Link
       href="/"
       onClick={(e) => {
-        if (pathname === "/") {
+        if (window.location.pathname === "/") {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
