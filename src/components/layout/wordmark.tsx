@@ -1,9 +1,23 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Wordmark({ brandName, className = "" }: { brandName: string; className?: string }) {
   const [first, ...rest] = brandName.split(" ");
+  const pathname = usePathname();
   return (
-    <Link href="/" className={`group inline-flex flex-col leading-none ${className}`} aria-label={`${brandName} — home`}>
+    <Link
+      href="/"
+      onClick={(e) => {
+        if (pathname === "/") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
+      className={`group inline-flex flex-col leading-none ${className}`}
+      aria-label={`${brandName} — home`}
+    >
       <span className="font-display text-[1.65rem] font-medium uppercase tracking-[0.28em] text-ink transition-colors group-hover:text-blush-deep">
         {first}
       </span>
